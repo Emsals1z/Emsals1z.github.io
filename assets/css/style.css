@@ -31,7 +31,15 @@ h5,
 h6 {
   font-family: "Raleway", sans-serif;
 }
-
+.resim{
+  animation: fadeIn 2s;
+  -webkit-animation: fadeIn 2s;
+  -moz-animation: fadeIn 2s;
+  -o-animation: fadeIn 2s;
+  -ms-animation: fadeIn 1s;
+  border-radius: 10px;
+ height: 500px;
+}
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
