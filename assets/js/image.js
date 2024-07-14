@@ -10,8 +10,6 @@ window.onload=function(){
         }
  
    
-
-
 console.log("JAVASCRİPT YÜKLENDİ 2")
 }
 
