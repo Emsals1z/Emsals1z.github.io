@@ -12,7 +12,7 @@ window.onload=function(){
    
 
 
-console.log("JAVASCRİPT YÜKLENDİ")
+console.log("JAVASCRİPT YÜKLENDİ 2")
 }
 
 
