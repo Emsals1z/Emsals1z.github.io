@@ -51,35 +51,69 @@ terminal.addCommand("helloworld", async function() {
     ]
 
     let size = {
-        x: welcomeLineFuncs.length * 2,
+        x: welcomeLineFuncs.length * 3,
         y: welcomeLineFuncs.length
     }
-   
-    let threshold = 0.4;  // Başlangıçtaki eşik değeri
-
-let sinFactor = 2;  // Başlangıçtaki değer
-
-    for (let i = 0; i < size.y; i++) {
-
-        welcomeLineFuncs[i]()
-        
-        for (let j = 1; j < size.x; j++) {
-            let x = (j / size.x - 0.5) * 2
-            let y = (i / size.y - 0.5) * 2
-            let r = Math.sqrt(x*x + y*y)
-            let theta = Math.atan2(y, x)
-            
-            if (Math.abs(Math.sin(sinFactor * theta) - r) > threshold) {
-                terminal.print("#", Color.hsl(0 / 360, 0, 10/ 100))
-            } else {
-                let angle = Math.atan2(y, x) / Math.PI * 180
-                let hue = Math.round(angle)
-                let lightness = Math.round(90 - (x*x + y*y) * 90)
-                terminal.print("#", Color.hsl(0 / 360, 1, lightness / 100))
+    const asciiArt = `                                      
+((((((((((((((((((((((((((((((((((((((((((((((((((
+(////****///////////////////////(/////////////////
+(///     ../#///(///////////////(///////////////(/
+(///,  #&@@@@@&&#-,,,&*,%&&&&@*-//////////////////
+(///##%%&&@@@@@@@&%.,*-*.  ;@@@#*****----///////(/
+(///;    .;%&&&&&&&&#* ,  @@; %#....******////////
+(///(#.;,%  ..#%&&&&%#@@@@@@@@@...*******&&&&-..,,
+(////#*.%%  ;   ..#%%%&&@@@@@@@@&...***,*;;-;%&&#;
+(///;;-;*,,        .%%&&&&&&&&&&&..*****,#%&&&#,,*
+(//////;/////.      .%&&&&&&&&&&&&.*#****,-#%%####
+(/////////////,      .&&&&&&&&&&&-%&-&&**,..*.....
+(////////////// ,***,.%%&%%%%%%%#&%-##%&&%.-......
+(///////(//////;;;;,.,%%%%%%%%%%--&&&....---*,,,,,
+(/////;///;//#;#;,,.%%#########--#--#&&&%#-#%%****
+(/////#(/-;##*. ,..#######-%%%##--**,*--%%%#-*&***
+(//////. -***...;##----------,,###%&&&.*.##;%%,***
+(/(/(/(/     ;#;;--*********,,*,,,,,*;#...;*#-**-*
+(////////*////*,;-...,**---*.%#%%#.-.*-.-..-.,*,..
+(///////////////(//(,,,**##; #%%%.;%#.;--..,*-*,.*
+(////////////////////##%#-;%&;-&&#-#&%&&%###&%;;;;
+`.trim().split("\n");
+    
+    for (let i = 0; i < asciiArt.length; i++) {
+        if (welcomeLineFuncs[i]) welcomeLineFuncs[i]();
+    
+        if (i < asciiArt.length) {
+            let line = asciiArt[i];
+            if (!welcomeLineFuncs[i]) {
+                line = "                                                                           " + asciiArt[i];
+            }
+    
+            let center = line.length / 2;
+    
+            for (let j = 0; j < line.length; j++) {
+                const char = line[j];
+           
+                // Ortadan uzaklığa göre lightness hesapla
+                let distanceFromCenter = Math.abs(j - center);
+                if (!welcomeLineFuncs[i]) {
+                    center = (line.length-75) / 2;
+                    distanceFromCenter = Math.abs(j - center-75);
+                }
+                const maxDistance = center;
+                const normalized = distanceFromCenter / maxDistance;
+    
+                // Lightness kenarda 30, ortada 90 olacak şekilde ayarlanır
+                const lightness = 90 - normalized * 60;
+    
+                if (char === '(' || char === '/') {
+                    terminal.print(char, Color.hsl(0, 0, 40 / 100));
+                } else {
+                    terminal.print(char, Color.hsl(0, 1, lightness / 100));
+                }
             }
         }
-        terminal.addLineBreak()
+    
+        terminal.addLineBreak();
     }
+    
 }, {
     description: "display the hello-world text",
     rawArgMode: true,
