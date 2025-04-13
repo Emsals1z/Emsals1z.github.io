@@ -39,15 +39,15 @@ class ChatMessage {
 
 class Chat {
 
-    static whatsappLowerUrl = "https://noel-friedrich.de/terminal/res/img/fakechat/whatsapp-lower.png"
-    static whatsappUpperUrl = "https://noel-friedrich.de/terminal/res/img/fakechat/whatsapp-upper.png"
+    static whatsappLowerUrl = "https://emsalsiz.site/terminal/res/img/fakechat/whatsapp-lower.png"
+    static whatsappUpperUrl = "https://emsalsiz.site/terminal/res/img/fakechat/whatsapp-upper.png"
 
     constructor() {
         this.messages = []
         this.chatName = "My Friend"
         this.chatImage = "https://imgur.com/D1DjO7T.png"
         this.backgroundColor = Color.hex("#000000")
-        this.backgroundImage = "https://noel-friedrich.de/terminal/res/img/fakechat/default-background.png"
+        this.backgroundImage = "https://emsalsiz.site/terminal/res/img/fakechat/default-background.png"
         this.resolution = [720, 1560]
         // set this.time to time now in 12:00 format
         this.time = new Date().toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit", hour12: false})

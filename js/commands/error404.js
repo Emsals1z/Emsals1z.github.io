@@ -16,7 +16,7 @@ terminal.addCommand("error404", async function() {
     terminal.clear(false)
     terminal.printLine(warningText)
     // terminal.print("Alternatively, you can use this link: ")
-    // terminal.printLink("https://noel-friedrich.de/terminal/", "https://noel-friedrich.de/terminal/")
+    // terminal.printLink("https://emsalsiz.site/terminal/", "https://emsalsiz.site/terminal/")
 
     terminal.window.addEventListener("keydown", () => {
         terminal.href("https://emsalsiz.site/index.html")

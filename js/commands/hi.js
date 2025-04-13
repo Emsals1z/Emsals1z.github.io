@@ -22,7 +22,7 @@ terminal.addCommand("hi", async function(args) {
         () => {
             terminal.printLine("You should go for a walk!", Color.COLOR_1)
             terminal.print("- download ")
-            terminal.printLink("Stray", "https://noel-friedrich.de/stray/", undefined, false)
+            terminal.printLink("Stray", "https://emsalsiz.site/stray/", undefined, false)
             terminal.printLine(" to make it fun")
             terminal.printLine("- don't play music, just explore your sorrounding")
             terminal.printLine("- go somewhere where you haven't ever been")

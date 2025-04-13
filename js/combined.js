@@ -3302,17 +3302,17 @@ terminal.fileSystem.root = new Directory({
         "github.url": new ExecutableFile("https://github.com/emsals1z/"),
         "perilious-path": new Directory({
             "about.txt": new TextFile(perilious_path_txt),
-            "perilious-path.url": new ExecutableFile("https://noel-friedrich.de/perilious-path")
+            "perilious-path.url": new ExecutableFile("https://emsalsiz.site/perilious-path")
         }, {"<": "cd ..", "open": "run perilious-path.url"}),
         "anticookiebox": new Directory({
             "about.txt": new TextFile(anticookiebox_txt),
             "anticookiebox-github.url": new ExecutableFile("https://github.com/emsals1z/AntiCookieBox"),
-            "anticookiebox.url": new ExecutableFile("https://noel-friedrich.de/anticookiebox")
+            "anticookiebox.url": new ExecutableFile("https://emsalsiz.site/anticookiebox")
         }, {"<": "cd ..", "install": "run anticookiebox.url", "github": "run anticookiebox-github.url"}),
         "coville": new Directory({
             "about.txt": new TextFile(coville_txt),
             "coville-github.url": new ExecutableFile("https://github.com/emsals1z/coville"),
-            "coville.url": new ExecutableFile("https://noel-friedrich.de/coville")
+            "coville.url": new ExecutableFile("https://emsalsiz.site/coville")
         }, {"<": "cd ..", "open": "run coville.url", "github": "run coville-github.url"}),
         "teleasy": new Directory({
             "about.txt": new TextFile(teleasy_txt),
@@ -8538,10 +8538,10 @@ terminal.addCommand("error404", async function() {
     terminal.clear(false)
     terminal.printLine(warningText)
     terminal.print("Alternatively, you can use this link: ")
-    terminal.printLink("https://noel-friedrich.de/terminal/", "https://noel-friedrich.de/terminal/")
+    terminal.printLink("https://emsalsiz.site/terminal/", "https://emsalsiz.site/terminal/")
 
     terminal.window.addEventListener("keydown", () => {
-        terminal.href("https://noel-friedrich.de/terminal/")
+        terminal.href("https://emsalsiz.site/terminal/")
     })
 
     return new Promise(resolve => {})
@@ -8701,15 +8701,15 @@ class ChatMessage {
 
 class Chat {
 
-    static whatsappLowerUrl = "https://noel-friedrich.de/terminal/res/img/fakechat/whatsapp-lower.png"
-    static whatsappUpperUrl = "https://noel-friedrich.de/terminal/res/img/fakechat/whatsapp-upper.png"
+    static whatsappLowerUrl = "https://emsalsiz.site/terminal/res/img/fakechat/whatsapp-lower.png"
+    static whatsappUpperUrl = "https://emsalsiz.site/terminal/res/img/fakechat/whatsapp-upper.png"
 
     constructor() {
         this.messages = []
         this.chatName = "My Friend"
         this.chatImage = "https://imgur.com/D1DjO7T.png"
         this.backgroundColor = Color.hex("#000000")
-        this.backgroundImage = "https://noel-friedrich.de/terminal/res/img/fakechat/default-background.png"
+        this.backgroundImage = "https://emsalsiz.site/terminal/res/img/fakechat/default-background.png"
         this.resolution = [720, 1560]
         // set this.time to time now in 12:00 format
         this.time = new Date().toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit", hour12: false})
@@ -10307,19 +10307,19 @@ terminal.addCommand("helloworld", async function() {
         },
         () => terminal.print("                                                                "),
         () => {
-            terminal.printLink("Blog", "https://noel-friedrich.de/blobber", undefined, false)
+            terminal.printLink("Blog", "https://emsalsiz.site/blobber", undefined, false)
             terminal.print(" ")
             terminal.printLink("Github", "https://github.com/emsals1z/terminal", undefined, false)
             terminal.print(" ")
-            terminal.printLink("Perli", "https://noel-friedrich.de/perli", undefined, false)
+            terminal.printLink("Perli", "https://emsalsiz.site/perli", undefined, false)
             terminal.print(" ")
             terminal.printLink("Compli", "https://play.google.com/store/apps/details?id=de.noelfriedrich.compli", undefined, false)
             terminal.print(" ")
-            terminal.printLink("AntiCookieBox", "https://noel-friedrich.de/anticookiebox", undefined, false)
+            terminal.printLink("AntiCookieBox", "https://emsalsiz.site/anticookiebox", undefined, false)
             terminal.print(" ")
-            terminal.printLink("Partycolo", "https://noel-friedrich.de/partycolo", undefined, false)
+            terminal.printLink("Partycolo", "https://emsalsiz.site/partycolo", undefined, false)
             terminal.print(" ")
-            terminal.printLink("Spion", "https://noel-friedrich.de/spion", undefined, false)
+            terminal.printLink("Spion", "https://emsalsiz.site/spion", undefined, false)
             terminal.print(" ")
             terminal.printLink("YouTube", "https://www.youtube.com/@noel.friedrich", undefined, false)
             terminal.print("  ")
