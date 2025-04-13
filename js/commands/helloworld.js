@@ -8,15 +8,15 @@ terminal.addCommand("helloworld", async function() {
     }
 
     const welcomeLineFuncs = [
-        () => terminal.print("/$$$$$$$$                                   /$$           /$$              "),
-        () => terminal.print("| $$_____/                                  | $$          |__/             "),
-        () => terminal.print("| $$       /$$$$$$/$$$$   /$$$$$$$  /$$$$$$ | $$  /$$$$$$$ /$$ /$$$$$$$$   "),
-        () => terminal.print("| $$$$$   | $$_  $$_  $$ /$$_____/ |____  $$| $$ /$$_____/| $$|____ /$$/   "),
-        () => terminal.print("| $$__/   | $$ \\ $$ \\ $$|  $$$$$$   /$$$$$$$| $$|  $$$$$$ | $$   /$$$$/    "),
-        () => terminal.print("| $$      | $$ | $$ | $$ \\____  $$ /$$__  $$| $$ \\____  $$| $$  /$$__/     "),
-        () => terminal.print("| $$$$$$$$| $$ | $$ | $$ /$$$$$$$/|  $$$$$$$| $$ /$$$$$$$/| $$ /$$$$$$$$   "),
-        () => terminal.print("|________/|__/ |__/ |__/|_______/  \\_______/|__/|_______/ |__/|________/   "),        
-        () => terminal.print("                                                                           "),
+        () => terminal.print("/$$$$$$$$                                   /$$           /$$              ", Color.hsl(0, 1, 68 / 100)),
+        () => terminal.print("| $$_____/                                  | $$          |__/             ", Color.hsl(0, 1, 64 / 100)),
+        () => terminal.print("| $$       /$$$$$$/$$$$   /$$$$$$$  /$$$$$$ | $$  /$$$$$$$ /$$ /$$$$$$$$   ", Color.hsl(0, 1, 60 / 100)),
+        () => terminal.print("| $$$$$   | $$_  $$_  $$ /$$_____/ |____  $$| $$ /$$_____/| $$|____ /$$/   ", Color.hsl(0, 1, 56 / 100)),
+        () => terminal.print("| $$__/   | $$ \\ $$ \\ $$|  $$$$$$   /$$$$$$$| $$|  $$$$$$ | $$   /$$$$/    ", Color.hsl(0, 1, 52 / 100)),
+        () => terminal.print("| $$      | $$ | $$ | $$ \\____  $$ /$$__  $$| $$ \\____  $$| $$  /$$__/     ", Color.hsl(0, 1, 48 / 100)),
+        () => terminal.print("| $$$$$$$$| $$ | $$ | $$ /$$$$$$$/|  $$$$$$$| $$ /$$$$$$$/| $$ /$$$$$$$$   ", Color.hsl(0, 1, 44 / 100)),
+        () => terminal.print("|________/|__/ |__/ |__/|_______/  \\_______/|__/|_______/ |__/|________/   ", Color.hsl(0, 1, 40 / 100)),       
+        () => terminal.print("                                                                           ", Color.hsl(0, 1, 80 / 100)),
         () => terminal.print("Welcome to my homepage. It's also a very interactive terminal.             "),
         () => terminal.print(`Enter commands to navigate over ${Object.keys(terminal.allCommands).length - 1} unique tools and features.             `),
         () => {
