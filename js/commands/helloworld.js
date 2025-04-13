@@ -21,20 +21,20 @@ terminal.addCommand("helloworld", async function() {
         () => terminal.print(`Enter commands to navigate over ${Object.keys(terminal.allCommands).length - 1} unique tools and features.             `),
         () => {
             terminal.print("Start your adventure using the ")
-            terminal.printCommand("help", "help", undefined, false)
+            terminal.printCommand("help", "help", Color.hsl(0, 1, 56 / 100), false)
             terminal.print(" command. Have lots of fun!             ")
         },
         () => terminal.print("                                                                           "),
         () => {
             terminal.print("For about me type or click ")
-            terminal.printCommand("cat root/about.txt", "cat root/about.txt", undefined, false)
+            terminal.printCommand("cat root/about.txt", "cat root/about.txt", Color.hsl(0, 1, 56 / 100), false)
             terminal.print(".                             ")
         },
         () => terminal.print("                                                                           "),
 
         () => {
             terminal.print("For my skills type or click ")
-            terminal.printCommand("cat root/skills.txt", "cat root/skills.txt", undefined, false)
+            terminal.printCommand("cat root/skills.txt", "cat root/skills.txt", Color.hsl(0, 1, 56 / 100), false)
             terminal.print(".                           ")
         },
         () => terminal.print("                                                                           "),
