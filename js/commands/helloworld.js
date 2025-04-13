@@ -19,11 +19,18 @@ terminal.addCommand("helloworld", async function() {
         () => terminal.print("                                                                           ", Color.hsl(0, 1, 80 / 100)),
         () => terminal.print("Welcome to my homepage. It's also a very interactive terminal.             "),
         () => terminal.print(`Enter commands to navigate over ${Object.keys(terminal.allCommands).length - 1} unique tools and features.             `),
+        () => terminal.print("                                                                           "),
         () => {
             terminal.print("Start your adventure using the ")
             terminal.printCommand("help", "help", Color.hsl(0, 1, 56 / 100), false)
             terminal.print(" command. Have lots of fun!             ")
         },
+        () => terminal.print("                                                                           "),
+        () => {
+            terminal.print("For open gui panel ")
+            terminal.printCommand("opengui", "opengui", Color.hsl(0, 1, 56 / 100), false)
+            terminal.print("                                                 ")
+        },      
         () => terminal.print("                                                                           "),
         () => {
             terminal.print("For about me type or click ")

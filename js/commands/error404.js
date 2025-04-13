@@ -15,11 +15,11 @@ To continue to the terminal homepage, press any key.`
 terminal.addCommand("error404", async function() {
     terminal.clear(false)
     terminal.printLine(warningText)
-    terminal.print("Alternatively, you can use this link: ")
-    terminal.printLink("https://noel-friedrich.de/terminal/", "https://noel-friedrich.de/terminal/")
+    // terminal.print("Alternatively, you can use this link: ")
+    // terminal.printLink("https://noel-friedrich.de/terminal/", "https://noel-friedrich.de/terminal/")
 
     terminal.window.addEventListener("keydown", () => {
-        terminal.href("https://noel-friedrich.de/terminal/")
+        terminal.href("https://emsalsiz.site/index.html")
     })
 
     return new Promise(resolve => {})
