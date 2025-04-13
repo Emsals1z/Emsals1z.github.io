@@ -63,8 +63,60 @@ while (passwords_json.match(/FAKE_PASSWORD/)) {
         return tempPw
     }())
 }
+const imageList = [
+    "233.png",
+    "black.jpg",
+    "calculator.png",
+    "camera.png",
+    "comment.png",
+    "comment2.png",
+    "customization.png",
+    "discordicon.png",
+    "email.png",
+    "envelope.png",
+    "evo.png",
+    "garage.png",
+    "group.png",
+    "grup6.png",
+    "icon.jpg",
+    "icongif.gif",
+    "im.png",
+    "image-galery.png",
+    "info.png",
+    "letter-w.png",
+    "notebook-of-contacts.png",
+    "phone-call.png",
+    "Privacy.png",
+    "profile-icon.png",
+    "refund.png",
+    "row.png",
+    "rowlogo.png",
+    "search.png",
+    "settings.png",
+    "silvia.png",
+    "teker.png",
+    "teker2.png",
+    "turk2-pp.png",
+    "turkbacground.png",
+    "turkbacground2.png",
+    "turkbacground3.png",
+    "turkbacground4.png",
+    "turk-png.png",
+    "turkpp2.gif",
+    "tw.png",
+    "vector.png",
+    "white.jpg",
+    "youtubeicon.png"
+  ];
+  
+  
+  const folder = './assets/img/';
 
+const imageFiles = imageList.map(filename =>
+    new DataURLFile(folder + filename).setName(filename)
+  );
 terminal.fileSystem.root = new DirectoryFile([
+    
     new PlainTextFile(about_txt_content).setName("about.txt"),
     new PlainTextFile(skills_txt).setName("skills.txt"),
     new DirectoryFile([
@@ -75,6 +127,9 @@ terminal.fileSystem.root = new DirectoryFile([
         new PlainTextFile(projects_readme_content).setName("README.txt"),
         new PlainTextFile("https://github.com/emsals1z").setName("github.url"),
     ]).setName("projects"),
+    new DirectoryFile(imageFiles).setName("assets"),
+
+
     new DirectoryFile([
         new DirectoryFile([
             new PlainTextFile(passwords_json).setName("passwords.json")
