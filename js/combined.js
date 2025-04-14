@@ -3302,17 +3302,17 @@ terminal.fileSystem.root = new Directory({
         "github.url": new ExecutableFile("https://github.com/emsals1z/"),
         "perilious-path": new Directory({
             "about.txt": new TextFile(perilious_path_txt),
-            "perilious-path.url": new ExecutableFile("https://emsalsiz.site/perilious-path")
+            "perilious-path.url": new ExecutableFile("https://emsalsiz.tr/perilious-path")
         }, {"<": "cd ..", "open": "run perilious-path.url"}),
         "anticookiebox": new Directory({
             "about.txt": new TextFile(anticookiebox_txt),
             "anticookiebox-github.url": new ExecutableFile("https://github.com/emsals1z/AntiCookieBox"),
-            "anticookiebox.url": new ExecutableFile("https://emsalsiz.site/anticookiebox")
+            "anticookiebox.url": new ExecutableFile("https://emsalsiz.tr/anticookiebox")
         }, {"<": "cd ..", "install": "run anticookiebox.url", "github": "run anticookiebox-github.url"}),
         "coville": new Directory({
             "about.txt": new TextFile(coville_txt),
             "coville-github.url": new ExecutableFile("https://github.com/emsals1z/coville"),
-            "coville.url": new ExecutableFile("https://emsalsiz.site/coville")
+            "coville.url": new ExecutableFile("https://emsalsiz.tr/coville")
         }, {"<": "cd ..", "open": "run coville.url", "github": "run coville-github.url"}),
         "teleasy": new Directory({
             "about.txt": new TextFile(teleasy_txt),
@@ -8538,10 +8538,10 @@ terminal.addCommand("error404", async function() {
     terminal.clear(false)
     terminal.printLine(warningText)
     terminal.print("Alternatively, you can use this link: ")
-    terminal.printLink("https://emsalsiz.site/terminal/", "https://emsalsiz.site/terminal/")
+    terminal.printLink("https://emsalsiz.tr/terminal/", "https://emsalsiz.tr/terminal/")
 
     terminal.window.addEventListener("keydown", () => {
-        terminal.href("https://emsalsiz.site/terminal/")
+        terminal.href("https://emsalsiz.tr/terminal/")
     })
 
     return new Promise(resolve => {})
@@ -8701,15 +8701,15 @@ class ChatMessage {
 
 class Chat {
 
-    static whatsappLowerUrl = "https://emsalsiz.site/terminal/res/img/fakechat/whatsapp-lower.png"
-    static whatsappUpperUrl = "https://emsalsiz.site/terminal/res/img/fakechat/whatsapp-upper.png"
+    static whatsappLowerUrl = "https://emsalsiz.tr/terminal/res/img/fakechat/whatsapp-lower.png"
+    static whatsappUpperUrl = "https://emsalsiz.tr/terminal/res/img/fakechat/whatsapp-upper.png"
 
     constructor() {
         this.messages = []
         this.chatName = "My Friend"
         this.chatImage = "https://imgur.com/D1DjO7T.png"
         this.backgroundColor = Color.hex("#000000")
-        this.backgroundImage = "https://emsalsiz.site/terminal/res/img/fakechat/default-background.png"
+        this.backgroundImage = "https://emsalsiz.tr/terminal/res/img/fakechat/default-background.png"
         this.resolution = [720, 1560]
         // set this.time to time now in 12:00 format
         this.time = new Date().toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit", hour12: false})
@@ -10290,65 +10290,126 @@ terminal.addCommand("head", function(args) {
 
 // ------------------- js/commands/helloworld.js --------------------
 terminal.addCommand("helloworld", async function() {
+    const printLinks = links => {
+        for (const {name, url} of links) {
+            terminal.printLink(name, url, undefined, false)
+            terminal.print(" ")
+        }
+        terminal.print("                                                              ")
+    }
+
     const welcomeLineFuncs = [
-        () => terminal.print("                  _    __      _          _      _      _       "),
-        () => terminal.print("                 | |  / _|    (_)        | |    (_)    | |      "),
-        () => terminal.print(" _ __   ___   ___| | | |_ _ __ _  ___  __| |_ __ _  ___| |__    "),
-        () => terminal.print("| '_ \\ / _ \\ / _ \\ | |  _| '__| |/ _ \\/ _\` | '__| |/ __| '_ \\   "),
-        () => terminal.print("| | | | (_) |  __/ |_| | | |  | |  __/ (_| | |  | | (__| | | |  "),
-        () => terminal.print("|_| |_|\\___/ \\___|_(_)_| |_|  |_|\\___|\\__,_|_|  |_|\\___|_| |_|  "),
-        () => terminal.print("                                                                "),
-        () => terminal.print("Welcome to my website! It's also a very interactive terminal!   "),
-        () => terminal.print("You may enter commands to navigate over 200 unique features.    "),
+        () => terminal.print("/$$$$$$$$                                   /$$           /$$              ", Color.hsl(0, 1, 68 / 100)),
+        () => terminal.print("| $$_____/                                  | $$          |__/             ", Color.hsl(0, 1, 64 / 100)),
+        () => terminal.print("| $$       /$$$$$$/$$$$   /$$$$$$$  /$$$$$$ | $$  /$$$$$$$ /$$ /$$$$$$$$   ", Color.hsl(0, 1, 60 / 100)),
+        () => terminal.print("| $$$$$   | $$_  $$_  $$ /$$_____/ |____  $$| $$ /$$_____/| $$|____ /$$/   ", Color.hsl(0, 1, 56 / 100)),
+        () => terminal.print("| $$__/   | $$ \\ $$ \\ $$|  $$$$$$   /$$$$$$$| $$|  $$$$$$ | $$   /$$$$/    ", Color.hsl(0, 1, 52 / 100)),
+        () => terminal.print("| $$      | $$ | $$ | $$ \\____  $$ /$$__  $$| $$ \\____  $$| $$  /$$__/     ", Color.hsl(0, 1, 48 / 100)),
+        () => terminal.print("| $$$$$$$$| $$ | $$ | $$ /$$$$$$$/|  $$$$$$$| $$ /$$$$$$$/| $$ /$$$$$$$$   ", Color.hsl(0, 1, 44 / 100)),
+        () => terminal.print("|________/|__/ |__/ |__/|_______/  \\_______/|__/|_______/ |__/|________/   ", Color.hsl(0, 1, 40 / 100)),       
+        () => terminal.print("                                                                           ", Color.hsl(0, 1, 80 / 100)),
+        () => terminal.print("Welcome to my homepage. It's also a very interactive terminal.             "),
+        () => terminal.print(`Enter commands to navigate over ${Object.keys(terminal.allCommands).length - 1} unique tools and features.             `),
+        () => terminal.print("                                                                           "),
         () => {
             terminal.print("Start your adventure using the ")
-            terminal.printCommand("help", "help", undefined, false)
-            terminal.print(" command. Have lots of fun!  ")
+            terminal.printCommand("help", "help", Color.hsl(0, 1, 56 / 100), false)
+            terminal.print(" command. Have lots of fun!             ")
         },
-        () => terminal.print("                                                                "),
+        () => terminal.print("                                                                           "),
         () => {
-            terminal.printLink("Blog", "https://emsalsiz.site/blobber", undefined, false)
-            terminal.print(" ")
-            terminal.printLink("Github", "https://github.com/emsals1z/terminal", undefined, false)
-            terminal.print(" ")
-            terminal.printLink("Perli", "https://emsalsiz.site/perli", undefined, false)
-            terminal.print(" ")
-            terminal.printLink("Compli", "https://play.google.com/store/apps/details?id=de.noelfriedrich.compli", undefined, false)
-            terminal.print(" ")
-            terminal.printLink("AntiCookieBox", "https://emsalsiz.site/anticookiebox", undefined, false)
-            terminal.print(" ")
-            terminal.printLink("Partycolo", "https://emsalsiz.site/partycolo", undefined, false)
-            terminal.print(" ")
-            terminal.printLink("Spion", "https://emsalsiz.site/spion", undefined, false)
-            terminal.print(" ")
-            terminal.printLink("YouTube", "https://www.youtube.com/@noel.friedrich", undefined, false)
-            terminal.print("  ")
-        }
+            terminal.print("For open gui panel ")
+            terminal.printCommand("opengui", "opengui", Color.hsl(0, 1, 56 / 100), false)
+            terminal.print("                                                 ")
+        },      
+        () => terminal.print("                                                                           "),
+        () => {
+            terminal.print("For about me type or click ")
+            terminal.printCommand("cat root/about.txt", "cat root/about.txt", Color.hsl(0, 1, 56 / 100), false)
+            terminal.print(".                             ")
+        },
+        () => terminal.print("                                                                           "),
+
+        () => {
+            terminal.print("For my skills type or click ")
+            terminal.printCommand("cat root/skills.txt", "cat root/skills.txt", Color.hsl(0, 1, 56 / 100), false)
+            terminal.print(".                           ")
+        },
+        () => terminal.print("                                                                           "),
+  
+        // --------------------------------------------------------------
+        // Instagram GitHub Perli Library AntiCookieBox Stray GUI YouTube
+        // Partycolo HR-Codes 3d Turtlo Coville Compli Spion Lettre Presi
+
+        () => printLinks([
+                {name: "GitHub", url: "https://github.com/Emsals1z"},
+                {name: "Steam", url: "https://steamcommunity.com/id/mremsalsiz"},
+        ]),
+ 
     ]
 
     let size = {
-        x: welcomeLineFuncs.length * 2,
+        x: welcomeLineFuncs.length * 3,
         y: welcomeLineFuncs.length
     }
-
-    const maxLineWidth = 64
-    for (let i = 0; i < size.y; i++) {
-
-        welcomeLineFuncs[i]()
-        
-        for (let j = 0; j < size.x; j++) {
-            let x = (j / size.x - 0.5) * 2
-            let y = (i / size.y - 0.5) * 2
-            if (x*x + y*y > 1) {
-                terminal.print(" ")
-            } else {
-                let angle = Math.atan2(y, x) / Math.PI * 180
-                let hue = Math.round(angle)
-                let lightness = Math.round(90 - (x*x + y*y) * 90)
-                terminal.print("#", Color.hsl(hue / 360, 1, lightness / 100))
+    const asciiArt = `                                      
+((((((((((((((((((((((((((((((((((((((((((((((((((
+(////****///////////////////////(/////////////////
+(///     ../#///(///////////////(///////////////(/
+(///,  #&@@@@@&&#-,,,&*,%&&&&@*-//////////////////
+(///##%%&&@@@@@@@&%.,*-*.  ;@@@#*****----///////(/
+(///;    .;%&&&&&&&&#* ,  @@; %#....******////////
+(///(#.;,%  ..#%&&&&%#@@@@@@@@@...*******&&&&-..,,
+(////#*.%%  ;   ..#%%%&&@@@@@@@@&...***,*;;-;%&&#;
+(///;;-;*,,        .%%&&&&&&&&&&&..*****,#%&&&#,,*
+(//////;/////.      .%&&&&&&&&&&&&.*#****,-#%%####
+(/////////////,      .&&&&&&&&&&&-%&-&&**,..*.....
+(////////////// ,***,.%%&%%%%%%%#&%-##%&&%.-......
+(///////(//////;;;;,.,%%%%%%%%%%--&&&....---*,,,,,
+(/////;///;//#;#;,,.%%#########--#--#&&&%#-#%%****
+(/////#(/-;##*. ,..#######-%%%##--**,*--%%%#-*&***
+(//////. -***...;##----------,,###%&&&.*.##;%%,***
+(/(/(/(/     ;#;;--*********,,*,,,,,*;#...;*#-**-*
+(////////*////*,;-...,**---*.%#%%#.-.*-.-..-.,*,..
+(///////////////(//(,,,**##; #%%%.;%#.;--..,*-*,.*
+(////////////////////##%#-;%&;-&&#-#&%&&%###&%;;;;
+`.trim().split("\n");
+    
+    for (let i = 0; i < asciiArt.length; i++) {
+        if (welcomeLineFuncs[i]) welcomeLineFuncs[i]();
+    
+        if (i < asciiArt.length) {
+            let line = asciiArt[i];
+            if (!welcomeLineFuncs[i]) {
+                line = "                                                                           " + asciiArt[i];
+            }
+    
+            let center = line.length / 2;
+    
+            for (let j = 0; j < line.length; j++) {
+                const char = line[j];
+           
+                // Ortadan uzaklığa göre lightness hesapla
+                let distanceFromCenter = Math.abs(j - center);
+                if (!welcomeLineFuncs[i]) {
+                    center = (line.length-75) / 2;
+                    distanceFromCenter = Math.abs(j - center-75);
+                }
+                const maxDistance = center;
+                const normalized = distanceFromCenter / maxDistance;
+    
+                // Lightness kenarda 30, ortada 90 olacak şekilde ayarlanır
+                const lightness = 90 - normalized * 60;
+    
+                if (char === '(' || char === '/') {
+                    terminal.print(char, Color.hsl(0, 0, 40 / 100));
+                } else {
+                    terminal.print(char, Color.hsl(0, 1, lightness / 100));
+                }
             }
         }
-        terminal.addLineBreak()
+    
+        terminal.addLineBreak();
     }
 }, {
     description: "display the hello-world text",

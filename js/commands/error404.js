@@ -16,10 +16,10 @@ terminal.addCommand("error404", async function() {
     terminal.clear(false)
     terminal.printLine(warningText)
     // terminal.print("Alternatively, you can use this link: ")
-    // terminal.printLink("https://emsalsiz.site/terminal/", "https://emsalsiz.site/terminal/")
+    // terminal.printLink("https://emsalsiz.tr/terminal/", "https://emsalsiz.tr/terminal/")
 
     terminal.window.addEventListener("keydown", () => {
-        terminal.href("https://emsalsiz.site/index.html")
+        terminal.href("https://emsalsiz.tr/index.html")
     })
 
     return new Promise(resolve => {})
