@@ -11,6 +11,6 @@ terminal.addCommand("perilious-path", async function(args) {
     while (1) await sleep(100)
 }, {
     description: "play perilous path",
-    isGame: true,
+    // isGame: true,
     args: {"?f=fullscreen:b": "Open in fullscreen mode"}
 })
