@@ -1,18 +1,210 @@
-<html>
-	<head>
-		<title>pmms</title>
-		<script src="mediaelement.min.js"></script>
-		<script src="dailymotion.min.js"></script>
-		<script src="twitch.min.js"></script>
-		<script src="vimeo.min.js"></script>
-		<script src="wave.js"></script>
-		<script src="script.js"></script>
-		<link rel="stylesheet" href="mediaelementplayer.min.css">
-		<link rel="stylesheet" href="style.css">
-	</head>
-	<body>
-		<div id="loading" style="display: none;">
-			<img src="loading.svg">
-		</div>
-	</body>
+<!DOCTYPE html>
+<!--
+  TENG MEDIA — Barındırılan Player Sayfası (DUI / wrapper)
+  ----------------------------------------------------------------------
+  Bu dosyayı KENDİ HTTPS sitende yayınla. Örnek: https://emsalsiz.tr/pmms/
+  (yani bu dosya https://emsalsiz.tr/pmms/index.html olarak erişilebilmeli)
+
+  Neden gerekli?
+    YouTube embed'i, isteğin GEÇERLİ bir https Referer'ı olmasını ister
+    (aksi halde Error 153 verir). FiveM NUI origin'i (cfx-nui-...) bunu
+    sağlayamıyor. Bu sayfa SENİN domaininden yüklendiği için YouTube
+    geçerli bir referer görür ve sorunsuz oynatır.
+
+  NUI tarafı bu sayfayı bir <iframe> içine alır ve postMessage ile yönetir.
+  Protokol:
+    NUI -> sayfa:  {tmp:'load', kind, id|url, volume, muted, startTime}
+                   {tmp:'play'} {tmp:'pause'} {tmp:'stop'}
+                   {tmp:'seek', time} {tmp:'volume', volume} {tmp:'mute', muted}
+    sayfa -> NUI:  {__teng:true, tmp:'ready'|'playerReady'|'ended'|'state'|'time'|'meta'|'error', ...}
+-->
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teng Media</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+    #yt, #vid { width: 100%; height: 100%; border: 0; display: block; }
+    .hidden { display: none !important; }
+    body { font-family: sans-serif; color: #fff; }
+  </style>
+</head>
+<body>
+  <div id="yt"></div>
+  <video id="vid" class="hidden" playsinline></video>
+  <audio id="aud" class="hidden"></audio>
+
+  <script>
+  (function () {
+    "use strict";
+
+    var ytPlayer = null, ytReady = false, pending = null, backend = null;
+    var vid = document.getElementById("vid");
+    var aud = document.getElementById("aud");
+    var vol = 100, muted = false;
+
+    function post(msg) {
+      msg.__teng = true;
+      try { parent.postMessage(msg, "*"); } catch (e) {}
+    }
+
+    /* YouTube IFrame API (bu sayfa gerçek domainde olduğu için 153 çıkmaz) */
+    var tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(tag);
+    window.onYouTubeIframeAPIReady = function () {
+      ytReady = true;
+      if (pending) { var p = pending; pending = null; loadYouTube(p); }
+      post({ tmp: "ready" });
+    };
+
+    function show(which) {
+      document.getElementById("yt").style.display = which === "youtube" ? "" : "none";
+      vid.classList.toggle("hidden", which !== "video");
+      aud.classList.toggle("hidden", which !== "audio");
+    }
+
+    function stopAll(except) {
+      try { if (except !== "youtube" && ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo(); } catch (e) {}
+      if (except !== "video") { try { vid.pause(); } catch (e) {} }
+      if (except !== "audio") { try { aud.pause(); } catch (e) {} }
+    }
+
+    function curEl() { return backend === "video" ? vid : backend === "audio" ? aud : null; }
+
+    function loadYouTube(d) {
+      if (!ytReady || !window.YT || !window.YT.Player) { pending = d; return; }
+      backend = "youtube"; show("youtube"); stopAll("youtube");
+      if (!ytPlayer) {
+        ytPlayer = new YT.Player("yt", {
+          width: "100%", height: "100%", videoId: d.id,
+          playerVars: { autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1, controls: 1 },
+          events: {
+            onReady: function (e) {
+              try { e.target.setVolume(muted ? 0 : vol); } catch (_) {}
+              if (d.startTime) { try { e.target.seekTo(d.startTime, true); } catch (_) {} }
+              try { e.target.playVideo(); } catch (_) {}
+              post({ tmp: "playerReady" });
+              try { post({ tmp: "meta", title: (e.target.getVideoData() || {}).title || "", duration: e.target.getDuration() || 0 }); } catch (_) {}
+            },
+            onStateChange: function (e) {
+              var S = YT.PlayerState;
+              if (e.data === S.ENDED) post({ tmp: "ended" });
+              else if (e.data === S.PLAYING) {
+                post({ tmp: "state", state: "playing" });
+                try { post({ tmp: "meta", title: (ytPlayer.getVideoData() || {}).title || "", duration: ytPlayer.getDuration() || 0 }); } catch (_) {}
+              } else if (e.data === S.PAUSED) post({ tmp: "state", state: "paused" });
+            },
+            onError: function (e) { post({ tmp: "error", code: e.data }); }
+          }
+        });
+      } else {
+        try {
+          ytPlayer.loadVideoById({ videoId: d.id, startSeconds: d.startTime || 0 });
+          ytPlayer.setVolume(muted ? 0 : vol);
+        } catch (e) {}
+      }
+    }
+
+    function loadFile(d) {
+      backend = d.kind; show(d.kind); stopAll(d.kind);
+      var m = curEl();
+      if (!m) return;
+      m.src = d.url;
+      m.muted = muted;
+      m.volume = vol / 100;
+      if (d.startTime) {
+        var h = function () { try { m.currentTime = d.startTime; } catch (_) {} m.removeEventListener("loadedmetadata", h); };
+        m.addEventListener("loadedmetadata", h);
+      }
+      var pr = m.play(); if (pr && pr.catch) pr.catch(function () {});
+    }
+
+    [vid, aud].forEach(function (m) {
+      var kind = (m === vid) ? "video" : "audio";
+      m.addEventListener("ended", function () { if (backend === kind) post({ tmp: "ended" }); });
+      m.addEventListener("play", function () { if (backend === kind) post({ tmp: "state", state: "playing" }); });
+      m.addEventListener("pause", function () { if (backend === kind) post({ tmp: "state", state: "paused" }); });
+      m.addEventListener("loadedmetadata", function () { if (backend === kind) post({ tmp: "meta", title: "", duration: m.duration || 0 }); });
+      m.addEventListener("error", function () { if (backend === kind) post({ tmp: "error", code: "media" }); });
+    });
+
+    function doPlay() {
+      if (backend === "youtube") { try { ytPlayer && ytPlayer.playVideo(); } catch (e) {} }
+      else { var m = curEl(); if (m) { var pr = m.play(); if (pr && pr.catch) pr.catch(function () {}); } }
+    }
+    function doPause() {
+      if (backend === "youtube") { try { ytPlayer && ytPlayer.pauseVideo(); } catch (e) {} }
+      else { var m = curEl(); if (m) m.pause(); }
+    }
+    function doStop() {
+      try { if (ytPlayer && ytPlayer.stopVideo) ytPlayer.stopVideo(); } catch (e) {}
+      try { vid.pause(); vid.removeAttribute("src"); } catch (e) {}
+      try { aud.pause(); aud.removeAttribute("src"); } catch (e) {}
+      backend = null;
+    }
+    function doSeek(t) {
+      if (backend === "youtube") { try { ytPlayer && ytPlayer.seekTo(t, true); } catch (e) {} }
+      else { var m = curEl(); if (m) { try { m.currentTime = t; } catch (_) {} } }
+    }
+    function doVolume(v) {
+      vol = Math.max(0, Math.min(100, v));
+      if (backend === "youtube") { try { ytPlayer && ytPlayer.setVolume(muted ? 0 : vol); } catch (e) {} }
+      if (vid) vid.volume = vol / 100;
+      if (aud) aud.volume = vol / 100;
+    }
+    function doMute(m) {
+      muted = !!m;
+      if (backend === "youtube") { try { muted ? ytPlayer.mute() : ytPlayer.unMute(); } catch (e) {} }
+      if (vid) vid.muted = muted;
+      if (aud) aud.muted = muted;
+    }
+
+    /* Süre takibi */
+    setInterval(function () {
+      if (!backend) return;
+      var ct = 0, dur = 0;
+      try {
+        if (backend === "youtube" && ytPlayer && ytPlayer.getCurrentTime) {
+          ct = ytPlayer.getCurrentTime() || 0; dur = ytPlayer.getDuration() || 0;
+        } else { var m = curEl(); if (m) { ct = m.currentTime || 0; dur = m.duration || 0; } }
+      } catch (e) {}
+      post({ tmp: "time", currentTime: ct, duration: isFinite(dur) ? dur : 0 });
+    }, 500);
+
+    window.addEventListener("message", function (ev) {
+      var d = ev.data;
+      if (!d || !d.tmp) return;
+      switch (d.tmp) {
+        case "load":
+          if (d.kind === "youtube" || d.kind === "youtubeMusic") loadYouTube(d);
+          else if (d.kind === "video" || d.kind === "audio") loadFile(d);
+          break;
+        case "play": doPlay(); break;
+        case "pause": doPause(); break;
+        case "stop": doStop(); break;
+        case "seek": doSeek(d.time || 0); break;
+        case "volume": doVolume(d.volume); break;
+        case "mute": doMute(d.muted); break;
+      }
+    });
+
+    post({ tmp: "boot" });
+
+    /* Doğrudan tarayıcıda hızlı test:
+       https://emsalsiz.tr/pmms/?v=VIDEO_ID  -> o YouTube videosunu oynatır
+       Bu çalışıyorsa, domain/referer doğru => NUI'de de 153 çıkmaz. */
+    try {
+      var params = new URLSearchParams(location.search);
+      var v = params.get("v");
+      if (v) {
+        var d = { kind: "youtube", id: v, volume: 70, muted: false, startTime: 0 };
+        if (ytReady) loadYouTube(d); else pending = d;
+      }
+    } catch (e) {}
+  })();
+  </script>
+</body>
 </html>
